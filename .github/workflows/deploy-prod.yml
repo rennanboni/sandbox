@@ -25,10 +25,6 @@ jobs:
 #      - name: Test
 #        run: yarn test
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
         with:
@@ -39,3 +35,5 @@ jobs:
         with:
           name: 'ecommerce'
           runtime: 'nodejs14'
+          entry_point: 'api'
+          source_dir: 'dist'
