@@ -16,6 +16,8 @@ export const bootstrap = async (server?: any) => {
   const app = await NestFactory.create<INestApplication>(module, new ExpressAdapter(server));
   // Logs
   app.useLogger(app.get(Logger));
+  // CORS
+  app.enableCors();
 
   // Swagger
   if (process.env.NODE_ENV !== 'production' || /true/i.test(process.env.SWAGGER_ENABLED)) {
