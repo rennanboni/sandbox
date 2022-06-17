@@ -31,7 +31,7 @@ export const bootstrap = async (server?: any) => {
     } catch (err) {}
 
     const document = SwaggerModule.createDocument(app, config.build());
-    SwaggerModule.setup('/ecommerce', app, document);
+    SwaggerModule.setup('/', app, document, { url: '/ecommerce' });
   }
 
   return app;
