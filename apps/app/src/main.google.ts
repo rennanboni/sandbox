@@ -5,7 +5,7 @@ import { bootstrap } from './main.base';
 
 const server = express();
 bootstrap(server)
-  .then(v => console.log('Nest Ready'))
+  .then(app => app.init())
   .catch(err => console.error('Nest broken', err));
 
 // export const api = functions.https.onRequest(server);

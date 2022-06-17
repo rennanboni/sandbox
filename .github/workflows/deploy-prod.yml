@@ -1,9 +1,9 @@
 name: deploy-prod
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -28,7 +28,7 @@ jobs:
       - name: Production Dependencies
         run: yarn --production
 
-      - name: Prepare
+      - name: Prepare Package
         run: cp package.json dist/package.json
 
       - name: Authenticate to Google Cloud
