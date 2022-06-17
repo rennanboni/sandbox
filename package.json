@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "main": "dist/apps/app/apps/app/src/main.google.js",
   "engines": {
-    "node": "14.17.6"
+    "node": "^14.x"
   },
   "scripts": {
     "prebuild": "rimraf dist",
