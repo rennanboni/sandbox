@@ -25,6 +25,12 @@ jobs:
 #      - name: Test
 #        run: yarn test
 
+      - name: Production Dependencies
+        run: yarn --production
+
+      - name: Prepare
+        run: cp package.json dist/package.json
+
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
         with:
