@@ -33,14 +33,14 @@ jobs:
         shell: bash
         env:
           VARIABLES: ${{ env.VARIABLES }}
-        run: |
+        run: >
           echo "$VARIABLES" >> .env.yml
-          cp package.json dist/package.json
+          && cp package.json dist/package.json
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
         with:
-          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+          credentials_json: ${{ env.GCP_SERVICE_ACCOUNT_KEY }}
 
       - name: Deploy
         uses: google-github-actions/deploy-cloud-functions@v0
