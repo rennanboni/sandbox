@@ -1,12 +1,13 @@
 name: deploy-prod
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
-  workflow_dispatch:
 
 jobs:
   build:
+    environment: PROD
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -28,8 +29,13 @@ jobs:
       - name: Production Dependencies
         run: yarn --production
 
-      - name: Prepare Package
-        run: cp package.json dist/package.json
+      - name: Setup Package
+        env:
+          NPMRC: ${{ env.VARIABLES }}
+        shell: bash
+        run: |
+          cp package.json dist/package.json
+          echo "$VARIABLES" >> .env.yml
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
@@ -43,3 +49,4 @@ jobs:
           runtime: 'nodejs14'
           entry_point: 'api'
           source_dir: 'dist'
+          env_vars_file: '.env.yml'
