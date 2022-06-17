@@ -32,7 +32,7 @@ import { RouterModule } from "@nestjs/core";
     CartModule,
     RouterModule.register([
       {
-        path: '/ecommerce',
+        path: '/',
         module: CartModule
       },
     ]),
