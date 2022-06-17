@@ -31,7 +31,7 @@ jobs:
 
       - name: Setup Package
         env:
-          NPMRC: ${{ env.VARIABLES }}
+          VARIABLES: ${{ env.VARIABLES }}
         shell: bash
         run: |
           cp package.json dist/package.json
