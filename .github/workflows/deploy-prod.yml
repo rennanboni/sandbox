@@ -6,9 +6,8 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@master
 
@@ -26,13 +25,17 @@ jobs:
 #      - name: Test
 #        run: yarn test
 
-      - name: Google Cloud Authentication
-        uses: 'google-github-actions/auth@v0'
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Authentication
+        uses: google-github-actions/auth@v0
         with:
-          credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'
+          credentials_json: ${{ env.GCP_SERVICE_ACCOUNT_KEY }}
 
-      - id: 'deploy'
-        uses: 'google-github-actions/deploy-cloud-functions@v0'
+      - name: Deploy
+        uses: google-github-actions/deploy-cloud-functions@v0
         with:
           name: 'ecommerce'
-          runtime: 'nodejs16'
+          runtime: 'nodejs14'
