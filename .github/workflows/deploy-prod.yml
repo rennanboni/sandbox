@@ -30,12 +30,12 @@ jobs:
         run: yarn --production
 
       - name: Setup Package
+        shell: bash
         env:
           VARIABLES: ${{ env.VARIABLES }}
-        shell: bash
         run: |
-          cp package.json dist/package.json
           echo "$VARIABLES" >> .env.yml
+          cp package.json dist/package.json
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
