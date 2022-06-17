@@ -8,10 +8,10 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { CartModule } from "../../cart/src/cart.module";
 
-export const bootstrap = async (server?: any) => {
-  const NODE_PORT = +process.env.NODE_PORT || +process.env.PORT || 3000;
-  const NODE_HOST = process.env.NODE_HOST || '0.0.0.0';
+export const NODE_PORT = +process.env.NODE_PORT || +process.env.PORT || 3000;
+export const NODE_HOST = process.env.NODE_HOST || '0.0.0.0';
 
+export const bootstrap = async (server?: any) => {
   const module = getModule();
   const app = await NestFactory.create<INestApplication>(module, new ExpressAdapter(server));
   // Logs
@@ -34,8 +34,7 @@ export const bootstrap = async (server?: any) => {
     SwaggerModule.setup('/', app, document);
   }
 
-  console.log(`Listing port http://${NODE_HOST}:${NODE_PORT}`);
-  await app.listen(NODE_PORT, NODE_HOST);
+  return app;
 }
 
 const getModule = async() => {
