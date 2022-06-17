@@ -14,8 +14,9 @@ export const NODE_HOST = process.env.NODE_HOST || '0.0.0.0';
 export const bootstrap = async (server?: any) => {
   const module = getModule();
   const app = await NestFactory.create<INestApplication>(module, new ExpressAdapter(server), { cors: true });
-  // Logs
+  // Configs
   app.useLogger(app.get(Logger));
+  app.setGlobalPrefix('/ecommerce');
 
   // Swagger
   if (process.env.NODE_ENV !== 'production' || /true/i.test(process.env.SWAGGER_ENABLED)) {
@@ -31,7 +32,7 @@ export const bootstrap = async (server?: any) => {
     } catch (err) {}
 
     const document = SwaggerModule.createDocument(app, config.build());
-    SwaggerModule.setup('/', app, document, { url: '/ecommerce' });
+    SwaggerModule.setup('/', app, document );
   }
 
   return app;
@@ -46,5 +47,5 @@ const getModule = async() => {
 
   return modules
     .find(item => item.name === module)
-    ;
+  ;
 }
