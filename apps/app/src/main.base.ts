@@ -19,14 +19,10 @@ export const bootstrap = async (server?: any) => {
 
   // Swagger
   if (isProduction() || isSwaggerEnabled()) {
-    const PATH_PREFIX = '/ecommerce';
-    if (isProduction()) {
-      app.setGlobalPrefix(PATH_PREFIX);
-    }
-
     const config = new DocumentBuilder()
       .setTitle('Sandbox-API')
       .addBearerAuth()
+      .setBasePath(getBasePath())
     ;
     try {
       const pkg = await import('../../../package.json');
@@ -35,9 +31,8 @@ export const bootstrap = async (server?: any) => {
       }
     } catch (err) {}
 
-    const document = SwaggerModule.createDocument(app, config.build(), { ignoreGlobalPrefix: true });
-    const path = isProduction() ? PATH_PREFIX : '/';
-    SwaggerModule.setup(path, app, document);
+    const document = SwaggerModule.createDocument(app, config.build());
+    SwaggerModule.setup('/', app, document);
   }
 
   return app;
@@ -45,6 +40,7 @@ export const bootstrap = async (server?: any) => {
 
 const isProduction = (): boolean => process.env.NODE_ENV === 'production';
 const isSwaggerEnabled = (): boolean => /true/i.test(process.env.SWAGGER_ENABLED);
+const getBasePath = (): string => isProduction() ? '/ecommerce' : '/';
 
 const getModule = async() => {
   const module = process.env.NESTJS_MODULE || 'AppModule';
