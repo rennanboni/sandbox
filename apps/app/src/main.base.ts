@@ -16,10 +16,14 @@ export const bootstrap = async (server?: any) => {
   const app = await NestFactory.create<INestApplication>(module, new ExpressAdapter(server), { cors: true });
   // Configs
   app.useLogger(app.get(Logger));
-  app.setGlobalPrefix('/ecommerce');
 
   // Swagger
-  if (process.env.NODE_ENV !== 'production' || /true/i.test(process.env.SWAGGER_ENABLED)) {
+  if (isProduction() || isSwaggerEnabled()) {
+    const PATH_PREFIX = '/ecommerce';
+    if (isProduction()) {
+      app.setGlobalPrefix(PATH_PREFIX);
+    }
+
     const config = new DocumentBuilder()
       .setTitle('Sandbox-API')
       .addBearerAuth()
@@ -31,12 +35,16 @@ export const bootstrap = async (server?: any) => {
       }
     } catch (err) {}
 
-    const document = SwaggerModule.createDocument(app, config.build());
-    SwaggerModule.setup('/', app, document );
+    const document = SwaggerModule.createDocument(app, config.build(), { ignoreGlobalPrefix: true });
+    const path = isProduction() ? PATH_PREFIX : '/';
+    SwaggerModule.setup(path, app, document);
   }
 
   return app;
 }
+
+const isProduction = (): boolean => process.env.NODE_ENV === 'production';
+const isSwaggerEnabled = (): boolean => /true/i.test(process.env.SWAGGER_ENABLED);
 
 const getModule = async() => {
   const module = process.env.NESTJS_MODULE || 'AppModule';
