@@ -24,7 +24,10 @@ export const bootstrap = async (server?: any) => {
       .addBearerAuth()
     ;
 
-    getSwaggerServers().forEach((url) => config.addServer(url))
+    // Swagger Servers
+    getSwaggerServers()
+      .forEach((url) => config.addServer(url))
+    ;
 
     try {
       const pkg = await import('../../../package.json');
