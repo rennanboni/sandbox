@@ -1,0 +1,2 @@
+export const ECOMMERCE_CONNECTION = 'ECOMMERCE_CONNECTION';
+export const ECOMMERCE_SCHEMA = 'ecommerce';

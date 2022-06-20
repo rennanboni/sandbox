@@ -1,9 +1,10 @@
-import { Module } from "@nestjs/common";
-import { CartModule } from "../../cart/src/cart.module";
-import { LoggerModule } from "nestjs-pino";
 import { Environment, EnvironmentModule } from "@app/environment";
-import { Params } from "nestjs-pino/params";
 import { RouterModule } from "@nestjs/core";
+import { Module } from "@nestjs/common";
+import { LoggerModule } from "nestjs-pino";
+import { Params } from "nestjs-pino/params";
+
+import { EcommerceModule } from "../../ecommerce/src/ecommerce.module";
 
 @Module({
   imports: [
@@ -29,11 +30,11 @@ import { RouterModule } from "@nestjs/core";
     }),
 
     // Modules
-    CartModule,
+    EcommerceModule,
     RouterModule.register([
       {
         path: '/',
-        module: CartModule
+        module: EcommerceModule
       },
     ]),
   ],

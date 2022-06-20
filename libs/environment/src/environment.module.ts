@@ -1,5 +1,6 @@
 import { Environment } from "./environment.interface";
 import { Global, Module } from "@nestjs/common";
+
 import { DEFAULT_LOG_LEVEL } from "./environment.constants";
 
 @Global()
@@ -7,14 +8,12 @@ import { DEFAULT_LOG_LEVEL } from "./environment.constants";
   providers: [
     {
       provide: Environment,
-      useFactory: async (): Promise<Environment> => {
-        const result: Environment = {
-          NODE_ENV: process.env.NODE_ENV,
-          LOG_LEVEL: process.env.LOG_LEVEL || DEFAULT_LOG_LEVEL,
-        };
+      useFactory: async (): Promise<Environment> => ({
+        NODE_ENV: process.env.NODE_ENV,
+        LOG_LEVEL: process.env.LOG_LEVEL || DEFAULT_LOG_LEVEL,
 
-        return result;
-      },
+        DATABASE_URL: process.env.DATABASE_URL,
+      }),
     },
   ],
   exports: [Environment],

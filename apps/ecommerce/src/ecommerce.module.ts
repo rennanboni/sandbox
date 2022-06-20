@@ -1,12 +1,23 @@
+import { Environment, EnvironmentModule } from '@app/environment';
+import { LoggerModule } from 'nestjs-pino';
+import { Params } from 'nestjs-pino/params';
 import { Module } from '@nestjs/common';
-import { CartController } from './cart.controller';
-import { Environment, EnvironmentModule } from "@app/environment";
-import { LoggerModule } from "nestjs-pino";
-import { Params } from "nestjs-pino/params";
+
+import { EcommerceDBModule } from './ecommerce-db.module';
+import { CartController, CartItemController, ProductController } from './controllers';
+import { CartItemService, CartService, ProductService } from './services';
 
 @Module({
-  controllers: [CartController],
-  providers: [],
+  controllers: [
+    CartController,
+    CartItemController,
+    ProductController,
+  ],
+  providers: [
+    CartService,
+    CartItemService,
+    ProductService,
+  ],
   imports: [
     // Commons
     EnvironmentModule,
@@ -28,6 +39,8 @@ import { Params } from "nestjs-pino/params";
         },
       })),
     }),
+
+    EcommerceDBModule,
   ],
 })
-export class CartModule {}
+export class EcommerceModule {}

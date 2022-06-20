@@ -6,7 +6,13 @@
   "root": "apps/app",
   "compilerOptions": {
     "webpack": false,
-    "tsConfigPath": "apps/app/tsconfig.app.json"
+    "tsConfigPath": "apps/app/tsconfig.app.json",
+    "plugins": [
+      {
+        "name": "@nestjs/swagger",
+        "options": {}
+      }
+    ]
   },
   "projects": {
     "app": {
@@ -34,6 +40,15 @@
       "sourceRoot": "libs/environment/src",
       "compilerOptions": {
         "tsConfigPath": "libs/environment/tsconfig.lib.json"
+      }
+    },
+    "ecommerce": {
+      "type": "application",
+      "root": "apps/ecommerce",
+      "entryFile": "main",
+      "sourceRoot": "apps/ecommerce/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/ecommerce/tsconfig.app.json"
       }
     }
   }
