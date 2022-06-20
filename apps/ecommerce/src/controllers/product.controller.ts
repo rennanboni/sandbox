@@ -13,6 +13,9 @@ import { ProductCreateDto, ProductDto } from './dtos';
     create: ProductCreateDto,
     update: ProductCreateDto,
   },
+  query: {
+    softDelete: true
+  }
 })
 @Controller('products')
 export class ProductController implements CrudController<Product> {
