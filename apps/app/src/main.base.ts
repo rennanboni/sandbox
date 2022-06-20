@@ -18,12 +18,14 @@ export const bootstrap = async (server?: any) => {
   app.useLogger(app.get(Logger));
 
   // Swagger
-  if (isProduction() || isSwaggerEnabled()) {
+  if (!isProduction() || isSwaggerEnabled()) {
     const config = new DocumentBuilder()
       .setTitle('Sandbox-API')
       .addBearerAuth()
-      .setBasePath(getBasePath())
     ;
+
+    getSwaggerServers().forEach((url) => config.addServer(url))
+
     try {
       const pkg = await import('../../../package.json');
       if (pkg) {
@@ -40,7 +42,7 @@ export const bootstrap = async (server?: any) => {
 
 const isProduction = (): boolean => process.env.NODE_ENV === 'production';
 const isSwaggerEnabled = (): boolean => /true/i.test(process.env.SWAGGER_ENABLED);
-const getBasePath = (): string => isProduction() ? '/ecommerce' : '/';
+const getSwaggerServers = (): string[] => process.env.SWAGGER_SERVERS ? process.env.SWAGGER_SERVERS.split(',') : [];
 
 const getModule = async() => {
   const module = process.env.NESTJS_MODULE || 'AppModule';
