@@ -38,7 +38,7 @@ jobs:
         env:
           GCP_FUNCTION_VARIABLES: ${{ secrets.GCP_FUNCTION_VARIABLES }}
         run: |
-          echo "GCP_FUNCTION_VARIABLES" >> .env.yml
+          echo "$GCP_FUNCTION_VARIABLES" >> .env.yml
           cp package.json dist/package.json
 
       - name: Authenticate to Google Cloud
