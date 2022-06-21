@@ -1,13 +1,18 @@
 name: deploy-prod
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'environment'
+        required: false
+        default: 'PROD'
   push:
     branches:
       - master
 
 jobs:
   build:
-    environment: PROD
+    environment: ${{ github.event.inputs.environment || 'PROD' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -31,9 +36,9 @@ jobs:
 
       - name: Setup Package
         env:
-          VARIABLES: ${{ secrets.VARIABLES }}
+          GCP_FUNCTION_VARIABLES: ${{ secrets.GCP_FUNCTION_VARIABLES }}
         run: |
-          echo "$VARIABLES" >> .env.yml
+          echo "GCP_FUNCTION_VARIABLES" >> .env.yml
           cp package.json dist/package.json
 
       - name: Authenticate to Google Cloud
@@ -47,5 +52,6 @@ jobs:
           name: 'ecommerce'
           runtime: 'nodejs14'
           entry_point: 'api'
+          region: 'southamerica-east1'
           source_dir: 'dist'
           env_vars_file: '.env.yml'
