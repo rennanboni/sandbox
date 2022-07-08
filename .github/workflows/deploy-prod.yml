@@ -44,9 +44,11 @@ jobs:
           GCP_FUNCTION_VARIABLES: ${{ secrets.GCP_FUNC_VARS_ECOMMERCE }}
         run: |
           echo "$GCP_FUNCTION_VARIABLES" >> dist/apps/ecommerce/.env.yml
-          cp package.json dist/apps/ecommerce/package.json
-          cp libs/common/src/main/main.google.js dist/apps/ecommerce/main.google.js
-          sed -i 's/main.js/main.google.js/g' dist/apps/ecommerce/package.json
+          sed -i 's/main.js/apps\/ecommerce\/src\/main.js/g' dist/apps/ecommerce/package.json
+#          echo "$GCP_FUNCTION_VARIABLES" >> dist/apps/ecommerce/.env.yml
+#          cp package.json dist/apps/ecommerce/package.json
+#          cp libs/common/src/main/main.google.js dist/apps/ecommerce/main.google.js
+#          sed -i 's/main.js/main.google.js/g' dist/apps/ecommerce/package.json
 
       - name: ECommerce - Deploy
         uses: google-github-actions/deploy-cloud-functions@v0
@@ -63,9 +65,11 @@ jobs:
           GCP_FUNCTION_VARIABLES: ${{ secrets.GCP_FUNC_VARS_PET }}
         run: |
           echo "$GCP_FUNCTION_VARIABLES" >> dist/apps/pet/.env.yml
-          cp package.json dist/apps/pet/package.json
-          cp libs/common/src/main/main.google.js dist/apps/pet/main.google.js
-          sed -i 's/main.js/main.google.js/g' dist/apps/pet/package.json
+          sed -i 's/main.js/apps\/pet\/src\/main.js/g' dist/apps/pet/package.json
+#          echo "$GCP_FUNCTION_VARIABLES" >> dist/apps/pet/.env.yml
+#          cp package.json dist/apps/pet/package.json
+#          cp libs/common/src/main/main.google.js dist/apps/pet/main.google.js
+#          sed -i 's/main.js/main.google.js/g' dist/apps/pet/package.json
 
       - name: Pet - Deploy
         uses: google-github-actions/deploy-cloud-functions@v0
