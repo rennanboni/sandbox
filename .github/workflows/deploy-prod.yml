@@ -43,8 +43,8 @@ jobs:
         env:
           GCP_FUNCTION_VARIABLES: ${{ secrets.GCP_FUNCTION_VARIABLES }}
         run: |
-          echo "GCP_FUNCTION_VARIABLES" >> dist/apps/ecommerce/.env.yml
-          cp package.json dist/apps/ecommerce/package.json
+          echo "GCP_FUNCTION_VARIABLES" >> dist/apps/ecommerce/apps/ecommerce/src/.env.yml
+          cp package.json dist/apps/ecommerce/apps/ecommerce/src/package.json
 
       - name: ECommerce - Deploy
         uses: google-github-actions/deploy-cloud-functions@v0
@@ -60,8 +60,8 @@ jobs:
         env:
           GCP_FUNCTION_VARIABLES: ${{ secrets.GCP_FUNCTION_VARIABLES }}
         run: |
-          echo "GCP_FUNCTION_VARIABLES" >> dist/apps/pet/.env.yml
-          cp package.json dist/apps/pet/package.json
+          echo "GCP_FUNCTION_VARIABLES" >> dist/apps/pet/apps/pet/src/.env.yml
+          cp package.json dist/apps/pet/apps/pet/src/package.json
 
       - name: Pet - Deploy
         uses: google-github-actions/deploy-cloud-functions@v0
