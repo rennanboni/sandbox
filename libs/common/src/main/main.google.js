@@ -1,1 +1,1 @@
-exports.api = require('../../../../apps/pet/src/main').api;
+exports.api = require('./main').api;
