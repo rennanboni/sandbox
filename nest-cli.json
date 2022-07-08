@@ -50,6 +50,24 @@
       "compilerOptions": {
         "tsConfigPath": "apps/ecommerce/tsconfig.app.json"
       }
+    },
+    "pet": {
+      "type": "application",
+      "root": "apps/pet",
+      "entryFile": "main",
+      "sourceRoot": "apps/pet/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/pet/tsconfig.app.json"
+      }
+    },
+    "common": {
+      "type": "library",
+      "root": "libs/common",
+      "entryFile": "index",
+      "sourceRoot": "libs/common/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/common/tsconfig.lib.json"
+      }
     }
   }
 }

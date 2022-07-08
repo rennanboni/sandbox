@@ -1,8 +1,11 @@
-import { NestFactory } from '@nestjs/core';
+import * as express from 'express';
+import { bootstrap } from '@app/common/bootstrap';
+
 import { EcommerceModule } from './ecommerce.module';
 
-async function bootstrap() {
-  const app = await NestFactory.create(EcommerceModule);
-  await app.listen(3000);
-}
-bootstrap();
+const server = express();
+bootstrap(EcommerceModule, server)
+  .then(app => app.init())
+  .catch(err => console.error('Nest broken', err));
+
+export const api = server;

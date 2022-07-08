@@ -24,6 +24,18 @@
       ],
       "@app/environment/*": [
         "libs/environment/src/*"
+      ],
+      "@app/bootstrap": [
+        "libs/bootstrap/src"
+      ],
+      "@app/bootstrap/*": [
+        "libs/bootstrap/src/*"
+      ],
+      "@app/common": [
+        "libs/common/src"
+      ],
+      "@app/common/*": [
+        "libs/common/src/*"
       ]
     }
   }

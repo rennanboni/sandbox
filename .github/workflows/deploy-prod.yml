@@ -34,24 +34,41 @@ jobs:
       - name: Production Dependencies
         run: yarn --production
 
-      - name: Setup Package
-        env:
-          GCP_FUNCTION_VARIABLES: ${{ secrets.GCP_FUNCTION_VARIABLES }}
-        run: |
-          echo "$GCP_FUNCTION_VARIABLES" >> .env.yml
-          cp package.json dist/package.json
-
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
         with:
           credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
 
-      - name: Deploy
+      - name: ECommerce - Setup Package
+        env:
+          GCP_FUNCTION_VARIABLES: ${{ secrets.GCP_FUNCTION_VARIABLES }}
+        run: |
+          echo "GCP_FUNCTION_VARIABLES" >> dist/apps/ecommerce/.env.yml
+          cp package.json dist/apps/ecommerce/package.json
+
+      - name: ECommerce - Deploy
         uses: google-github-actions/deploy-cloud-functions@v0
         with:
           name: 'ecommerce'
           runtime: 'nodejs14'
           entry_point: 'api'
           region: 'southamerica-east1'
-          source_dir: 'dist'
-          env_vars_file: '.env.yml'
+          source_dir: 'dist/apps/ecommerce'
+          env_vars_file: 'dist/apps/ecommerce/.env.yml'
+
+      - name: Pet - Setup Package
+        env:
+          GCP_FUNCTION_VARIABLES: ${{ secrets.GCP_FUNCTION_VARIABLES }}
+        run: |
+          echo "GCP_FUNCTION_VARIABLES" >> dist/apps/pet/.env.yml
+          cp package.json dist/apps/pet/package.json
+
+      - name: Pet - Deploy
+        uses: google-github-actions/deploy-cloud-functions@v0
+        with:
+          name: 'pet'
+          runtime: 'nodejs14'
+          entry_point: 'api'
+          region: 'southamerica-east1'
+          source_dir: 'dist/apps/pet'
+          env_vars_file: 'dist/apps/pet/.env.yml'
