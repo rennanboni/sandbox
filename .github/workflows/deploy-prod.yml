@@ -43,7 +43,7 @@ jobs:
         env:
           GCP_FUNCTION_VARIABLES: ${{ secrets.GCP_FUNCTION_VARIABLES }}
         run: |
-          echo "GCP_FUNCTION_VARIABLES" >> dist/apps/ecommerce/apps/ecommerce/src/.env.yml
+          echo "GCP_FUNCTION_VARIABLES" >> dist/apps/ecommerce/.env.yml
           sed -i 's/main.js/apps\/ecommerce\/src\/main.js/g' dist/apps/ecommerce/package.json
 
       - name: ECommerce - Deploy
@@ -54,13 +54,13 @@ jobs:
           entry_point: 'api'
           region: 'southamerica-east1'
           source_dir: 'dist/apps/ecommerce'
-          env_vars_file: 'dist/apps/ecommerce/apps/ecommerce/src/.env.yml'
+          env_vars_file: 'dist/apps/ecommerce/.env.yml'
 
       - name: Pet - Setup Package
         env:
           GCP_FUNCTION_VARIABLES: ${{ secrets.GCP_FUNCTION_VARIABLES }}
         run: |
-          echo "GCP_FUNCTION_VARIABLES" >> dist/apps/pet/apps/pet/src/.env.yml
+          echo "GCP_FUNCTION_VARIABLES" >> dist/apps/pet/.env.yml
           sed -i 's/main.js/apps\/pet\/src\/main.js/g' dist/apps/pet/package.json
 
       - name: Pet - Deploy
@@ -71,4 +71,4 @@ jobs:
           entry_point: 'api'
           region: 'southamerica-east1'
           source_dir: 'dist/apps/pet'
-          env_vars_file: 'dist/apps/pet/apps/pet/src/.env.yml'
+          env_vars_file: 'dist/apps/pet/.env.yml'
