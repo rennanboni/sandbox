@@ -61,7 +61,9 @@ jobs:
           GCP_FUNCTION_VARIABLES: ${{ secrets.GCP_FUNCTION_VARIABLES }}
         run: |
           echo "$GCP_FUNCTION_VARIABLES" >> dist/apps/pet/.env.yml
-          sed -i 's/main.js/apps\/pet\/src\/main.js/g' dist/apps/pet/package.json
+          cp package.json dist/apps/pet/package.json
+          cp libs/common/src/main/main.google.js dist/apps/pet/main.google.js
+          sed -i 's/main.js/main.google.js/g' dist/apps/pet/package.json
 
       - name: Pet - Deploy
         uses: google-github-actions/deploy-cloud-functions@v0
