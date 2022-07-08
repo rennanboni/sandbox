@@ -54,7 +54,7 @@ jobs:
           entry_point: 'api'
           region: 'southamerica-east1'
           source_dir: 'dist/apps/ecommerce'
-          env_vars_file: 'dist/apps/ecommerce/.env.yml'
+          env_vars_file: 'dist/apps/ecommerce/apps/ecommerce/src/.env.yml'
 
       - name: Pet - Setup Package
         env:
@@ -71,4 +71,4 @@ jobs:
           entry_point: 'api'
           region: 'southamerica-east1'
           source_dir: 'dist/apps/pet'
-          env_vars_file: 'dist/apps/pet/.env.yml'
+          env_vars_file: 'dist/apps/pet/apps/pet/src/.env.yml'
