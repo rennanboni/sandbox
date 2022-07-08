@@ -13,7 +13,7 @@
     "prebuild": "rimraf dist",
     "build": "run-p build:*",
     "build:app": "nest build",
-    "build:ecommerce": "nest build ecommerce",
+    "build:ecommerce": "nest build ecommerce --webpack",
     "build:pet": "nest build pet --webpack",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
